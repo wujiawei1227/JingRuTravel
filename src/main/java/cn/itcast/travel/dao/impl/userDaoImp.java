@@ -19,6 +19,9 @@ import org.springframework.jdbc.core.RowMapper;
 
 public class userDaoImp implements userDao {
     private JdbcTemplate template=new JdbcTemplate(JDBCUtils.getDataSource());
+
+
+
     @Override
     public User findByName(String name) {
         User user = null;
@@ -34,9 +37,31 @@ public class userDaoImp implements userDao {
     @Override
     public void save(User user) {
         System.out.println(user);
-        String sql="insert into tab_user (username,password,name,birthday,sex,telephone,email) value(?,?,?,?,?,?,?)";
-        template.update(sql,user.getUsername(),user.getPassword(),user.getName(),user.getBirthday(),user.getSex(),user.getTelephone(),user.getEmail());
+        String sql="insert into tab_user (username,password,name,birthday,sex,telephone,email,status,code) value(?,?,?,?,?,?,?,?,?)";
+        template.update(sql,user.getUsername(),user.getPassword(),user.getName(),user.getBirthday(),user.getSex(),user.getTelephone(),user.getEmail(),user.getStatus(),user.getCode());
 
+    }
+
+    @Override
+    public void updateStatus(User user) {
+       String sql="update tab_user set status='Y' where uid=?";
+       template.update(sql,user.getUid());
+
+    }
+
+    @Override
+    public User findByCode(String code) {
+        User user = null;
+        String sql="select * from tab_user where code=?";
+
+        try {
+
+            user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), code);
+        } catch (DataAccessException e) {
+
+        }
+
+        return user;
     }
 }
 

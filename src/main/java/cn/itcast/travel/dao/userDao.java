@@ -17,4 +17,18 @@ public interface userDao {
     * @return boolean
     **/
    public void save(User user);
+   /*
+   *
+    * @Description //TODO 更新用户邮箱验证状态
+    * @Param [user]
+    * @return void
+    **/
+   public  void updateStatus(User user);
+   /*
+   *
+    * @Description //TODO 根据code查询用户
+    * @Param [code]
+    * @return java.lang.Boolean
+    **/
+   public  User findByCode(String code);
 }
