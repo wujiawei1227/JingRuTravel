@@ -63,5 +63,18 @@ public class userDaoImp implements userDao {
 
         return user;
     }
+
+    @Override
+    public User findByNameAndPassword(User user) {
+        User use = null;
+        try {
+            String sql="select * from tab_user where username=? and password=?";
+            use = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), user.getUsername(),user.getPassword());
+        } catch (Exception e) {
+
+        }
+
+        return use;
+    }
 }
 

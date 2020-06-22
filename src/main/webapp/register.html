@@ -90,7 +90,7 @@
 		$(function () {
 			$("#registerForm").submit(function () {
 				if (checkusername()&&checkpassword()&&checkemail()&&checkphone()){
-					$.post("registerServlet",$(this).serialize(),function (data) {
+					$.post("user/register",$(this).serialize(),function (data) {
 					if (data.flag){
 						location.href="register_ok.html";
 					}else{

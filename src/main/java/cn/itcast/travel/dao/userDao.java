@@ -1,6 +1,7 @@
 package cn.itcast.travel.dao;
 
 import cn.itcast.travel.domain.User;
+import sun.security.util.Password;
 
 public interface userDao {
     /*
@@ -31,4 +32,5 @@ public interface userDao {
     * @return java.lang.Boolean
     **/
    public  User findByCode(String code);
+   public  User findByNameAndPassword(User user);
 }

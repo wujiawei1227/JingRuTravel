@@ -60,11 +60,22 @@ public class userServiceImp implements userService {
 
             //发送验证邮件
             String email = user.getEmail();
-            String href="<a href='http://localhost/travel/activeUserServlet?code="+user.getCode()+"'>点击激活【静茹旅游网】</a>";
+            String href="<a href='http://localhost/travel/user/activeuser?code="+user.getCode()+"'>点击激活【静茹旅游网】</a>";
             MailUtils.sendMail(email,href,"邮箱验证");
 
             return true;
 
         }
+    }
+/*
+*
+ * @Description //TODO 登录判断
+ * @Param [user]
+ * @return java.lang.Boolean
+ **/
+    @Override
+    public User login(User user) {
+
+        return dao.findByNameAndPassword(user);
     }
 }
