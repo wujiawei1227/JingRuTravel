@@ -20,6 +20,12 @@ import java.util.Map;
 @WebServlet("/user/*")
 public class UserServlet extends BaseServlet {
     private ResultInfo info = new ResultInfo();
+    /*
+    *
+     * @Description //TODO 注册用户
+     * @Param [request, response]
+     * @return void
+     **/
     public void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //获取验证码
@@ -55,12 +61,16 @@ public class UserServlet extends BaseServlet {
             }
         }
         //将info序列化为json
-        ObjectMapper mapper = new ObjectMapper();
-        String s = mapper.writeValueAsString(info);
-        response.setContentType("application/json,charset=utf-8");
-        response.getWriter().write(s);
+
+       writeValue(info,response);
 
     }
+    /*
+    *
+     * @Description //TODO 登录用户
+     * @Param [request, response]
+     * @return void
+     **/
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String check = request.getParameter("check");
@@ -94,25 +104,38 @@ public class UserServlet extends BaseServlet {
             info.setFlag(false);
             info.setErrorMsg("验证码错误");
         }
-        response.setContentType("application/json;charset=utf-8");
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getWriter(),info);
+        writeValue(info,response);
     }
+    /*
+    *
+     * @Description //TODO 获取已登录用户名
+     * @Param [request, response]
+     * @return void
+     **/
     public void finduserbyname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         Object user = session.getAttribute("user");
-        ObjectMapper mapper = new ObjectMapper();
-        String s = mapper.writeValueAsString(user);
-        response.setContentType("application/json,charset=utf-8");
-        response.getWriter().write(s);
+      writeValue(user,response);
     }
+    /*
+    *
+     * @Description //TODO 退出登录
+     * @Param [request, response]
+     * @return void
+     **/
     public void exist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //销毁session
         request.getSession().invalidate();
         //重定向到登录页面
         response.sendRedirect(request.getContextPath()+"/login.html");
     }
+    /*
+    *
+     * @Description //TODO 激活用户邮箱
+     * @Param [request, response]
+     * @return void
+     **/
     public void activeuser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=utf-8");
@@ -132,7 +155,7 @@ public class UserServlet extends BaseServlet {
             //激活失败
             msg="验证失败，请联系管理员";
         }
-        response.getWriter().write(msg);
+       writeValue(msg,response);
     }
     }
 
