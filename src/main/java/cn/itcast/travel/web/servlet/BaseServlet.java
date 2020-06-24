@@ -17,10 +17,10 @@ public class BaseServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //获取请求路径
         String requestURI = req.getRequestURI();
-        System.out.println("请求路径" + requestURI);
+
         // 获取方法名称
         String substring = requestURI.substring(requestURI.lastIndexOf("/") + 1);
-        System.out.println("方法名称" + substring);
+
 
         try {
             //通过反射得到方法
