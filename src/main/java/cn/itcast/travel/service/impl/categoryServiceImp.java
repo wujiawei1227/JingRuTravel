@@ -20,6 +20,12 @@ import java.util.Set;
  **/
 
 public class categoryServiceImp implements categoryService {
+    /*
+    *
+     * @Description //TODO 查询线路分类，并将线路分类存入redis
+     * @Param []
+     * @return java.util.List<cn.itcast.travel.domain.Category>
+     **/
     @Override
     public List<Category> listCategory() {
         //从redis中查询

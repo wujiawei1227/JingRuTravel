@@ -15,6 +15,12 @@ import java.util.List;
 @WebServlet("/category/*")
 public class CategoryServlet extends BaseServlet {
     private categoryService service=new categoryServiceImp();
+    /*
+    *
+     * @Description //TODO 查询所有线路分类
+     * @Param [request, response]
+     * @return void
+     **/
     public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //调用service方法查询
         List<Category> categories = service.listCategory();

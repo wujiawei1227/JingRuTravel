@@ -1,14 +1,14 @@
 package cn.itcast.travel.dao.impl;
 
 import cn.itcast.travel.dao.RouteDao;
-import cn.itcast.travel.domain.Route;
-import cn.itcast.travel.domain.RouteImg;
-import cn.itcast.travel.domain.Seller;
+import cn.itcast.travel.domain.*;
 import cn.itcast.travel.util.JDBCUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,13 +76,24 @@ public class RouteDaoImp implements RouteDao {
         return template.query(sql,new BeanPropertyRowMapper<Route>(Route.class),list.toArray());
     }
 
+    /*
+    *
+     * @Description //TODO 根据线路id查找线路
+     * @Param [rid]
+     * @return cn.itcast.travel.domain.Route
+     **/
     @Override
     public Route findOne(int rid) {
         String sql="select * from tab_route where rid = ?";
 
         return template.queryForObject(sql,new BeanPropertyRowMapper<Route>(Route.class),rid);
     }
-
+/*
+*
+ * @Description //TODO 根据线路id查找附属图片
+ * @Param [rid]
+ * @return java.util.List<cn.itcast.travel.domain.RouteImg>
+ **/
     @Override
     public List<RouteImg> findImg(int rid) {
         String sql="select * from tab_route_img where rid = ?";
@@ -90,12 +101,54 @@ public class RouteDaoImp implements RouteDao {
         return template.query(sql,new BeanPropertyRowMapper<RouteImg>(RouteImg.class),rid);
 
     }
-
+/*
+*
+ * @Description //TODO 根据线路id查询附属图片
+ * @Param [sid]
+ * @return cn.itcast.travel.domain.Seller
+ **/
     @Override
     public Seller findSell(int sid) {
         String sql="select * from tab_seller where sid = ?";
 
         return template.queryForObject(sql,new BeanPropertyRowMapper<Seller>(Seller.class),sid);
 
+    }
+    /*
+    *
+     * @Description //TODO 查看根据线路id和用户id查看线路是否被收藏
+     * @Param [Rid, Uid]
+     * @return cn.itcast.travel.domain.Favorite
+     **/
+    public Favorite FindByRidAndUid(int Rid, int Uid) {
+        String sql="select * from tab_favorite where rid = ? and uid =?";
+        Favorite user=null;
+        try {
+            user=template.queryForObject(sql,new BeanPropertyRowMapper<Favorite>(Favorite.class),Rid,Uid);
+        } catch (DataAccessException e) {
+
+        }
+        return user;
+    }
+/*
+*
+ * @Description //TODO 根据线路id查询该线路被收藏次数
+ * @Param [rid]
+ * @return int
+ **/
+    @Override
+    public int favoriteCount(int rid) {
+        String sql="select count(*) from tab_favorite where rid = ?";
+        return template.queryForObject(sql,Integer.class,rid);
+    }
+    /*
+    *
+     * @Description //TODO 根据用户id收藏线路
+     * @Param [rid, uid]
+     * @return void
+     **/
+    public void addFavorite(int rid,int uid){
+        String sql="insert into tab_favorite (rid,date,uid) value(?,?,?)";
+        template.update(sql,rid,new Date(),uid);
     }
 }

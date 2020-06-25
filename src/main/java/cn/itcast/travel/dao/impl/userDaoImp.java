@@ -21,7 +21,12 @@ public class userDaoImp implements userDao {
     private JdbcTemplate template=new JdbcTemplate(JDBCUtils.getDataSource());
 
 
-
+/*
+*
+ * @Description //TODO 根据用户名查找用户
+ * @Param [name]
+ * @return cn.itcast.travel.domain.User
+ **/
     @Override
     public User findByName(String name) {
         User user = null;
@@ -33,7 +38,12 @@ public class userDaoImp implements userDao {
         }
         return user;
     }
-
+/*
+*
+ * @Description //TODO 保存用户
+ * @Param [user]
+ * @return void
+ **/
     @Override
     public void save(User user) {
         System.out.println(user);
@@ -41,14 +51,24 @@ public class userDaoImp implements userDao {
         template.update(sql,user.getUsername(),user.getPassword(),user.getName(),user.getBirthday(),user.getSex(),user.getTelephone(),user.getEmail(),user.getStatus(),user.getCode());
 
     }
-
+/*
+*
+ * @Description //TODO 更新用户邮箱激活状态
+ * @Param [user]
+ * @return void
+ **/
     @Override
     public void updateStatus(User user) {
        String sql="update tab_user set status='Y' where uid=?";
        template.update(sql,user.getUid());
 
     }
-
+/*
+*
+ * @Description //TODO 根据用户唯一code值查询用户
+ * @Param [code]
+ * @return cn.itcast.travel.domain.User
+ **/
     @Override
     public User findByCode(String code) {
         User user = null;
@@ -63,7 +83,12 @@ public class userDaoImp implements userDao {
 
         return user;
     }
-
+/*
+*
+ * @Description //TODO 根据用户名和密码查询用户
+ * @Param [user]
+ * @return cn.itcast.travel.domain.User
+ **/
     @Override
     public User findByNameAndPassword(User user) {
         User use = null;

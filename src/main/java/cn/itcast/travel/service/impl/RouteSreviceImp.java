@@ -2,10 +2,7 @@ package cn.itcast.travel.service.impl;
 
 import cn.itcast.travel.dao.RouteDao;
 import cn.itcast.travel.dao.impl.RouteDaoImp;
-import cn.itcast.travel.domain.PageBean;
-import cn.itcast.travel.domain.Route;
-import cn.itcast.travel.domain.RouteImg;
-import cn.itcast.travel.domain.Seller;
+import cn.itcast.travel.domain.*;
 import cn.itcast.travel.service.RouteService;
 
 import java.util.List;
@@ -61,5 +58,34 @@ private RouteDao dao=new RouteDaoImp();
         Seller seller=dao.findSell(sid);
         one.setSeller(seller);
         return one;
+    }
+/*
+*
+ * @Description //TODO 根据线路id和用户id查询该线路是否被该用户收藏
+ * @Param [rid, uid]
+ * @return cn.itcast.travel.domain.Favorite
+ **/
+    @Override
+    public Favorite FindUserByRidAndUid(int rid, int uid) {
+        return dao.FindByRidAndUid(rid,uid);
+    }
+/*
+*
+ * @Description //TODO 查询该线路被收藏次数
+ * @Param [rid]
+ * @return int
+ **/
+    @Override
+    public int favoriteCount(int rid) {
+        return dao.favoriteCount(rid);
+    }
+    /*
+    *
+     * @Description //TODO 在此用户背景下将该线路收藏
+     * @Param [rid, uid]
+     * @return void
+     **/
+    public void addFavorite(int rid,int uid){
+        dao.addFavorite(rid,uid);
     }
 }

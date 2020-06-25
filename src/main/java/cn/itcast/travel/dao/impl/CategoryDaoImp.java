@@ -18,11 +18,16 @@ import java.util.List;
 
 public class CategoryDaoImp implements CategoryDao {
     private JdbcTemplate template=new JdbcTemplate(JDBCUtils.getDataSource());
+    /*
+    *
+     * @Description //TODO 查找线路分类
+     * @Param []
+     * @return java.util.List<cn.itcast.travel.domain.Category>
+     **/
     @Override
     public List<Category> findAll() {
         String sql="select * from tab_category";
         List<Category> query = template.query(sql, new BeanPropertyRowMapper<Category>(Category.class));
-        System.out.println("1111");
         System.out.println(query.size());
         return query;
     }

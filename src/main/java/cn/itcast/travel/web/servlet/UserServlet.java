@@ -33,6 +33,7 @@ public class UserServlet extends BaseServlet {
         HttpSession session = request.getSession();
         String checkcode = (String) session.getAttribute("CHECKCODE_SERVER");
         session.removeAttribute("CHECKCODE_SERVER");
+        //判断验证码是否正确
         if(checkcode==null||!checkcode.equalsIgnoreCase(check)){
             info.setFlag(false);
             info.setErrorMsg("验证码错误");

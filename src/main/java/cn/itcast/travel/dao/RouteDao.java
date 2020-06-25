@@ -1,8 +1,6 @@
 package cn.itcast.travel.dao;
 
-import cn.itcast.travel.domain.Route;
-import cn.itcast.travel.domain.RouteImg;
-import cn.itcast.travel.domain.Seller;
+import cn.itcast.travel.domain.*;
 
 import java.util.List;
 
@@ -11,7 +9,10 @@ public interface RouteDao {
     public List findByPage(int cid,int start,int pageSize,String rname);
     public Route findOne(int rid);
 
-    List<RouteImg> findImg(int rid);
+   public List<RouteImg> findImg(int rid);
 
-    Seller findSell(int sid);
+    public Seller findSell(int sid);
+    public Favorite FindByRidAndUid(int Rid, int Uid);
+    public int favoriteCount(int rid);
+    public void addFavorite(int rid,int uid);
 }
